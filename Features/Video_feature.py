@@ -21,9 +21,6 @@ model.to(device)
 model.eval()
 
 def load_video(path, num_frames=16):
-    """
-    Uniformly samples num_frames from the video.
-    """
     cap = cv2.VideoCapture(path)
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     
@@ -72,10 +69,9 @@ for _, row in tqdm(df.iterrows(), total=len(df), desc="Extracting VideoMAE"):
             with torch.no_grad():
                 outputs = model(**inputs)
                 
-            # 1. Mean pool across sequence length (1568 tokens -> 1 vector)
+            # Mean pool across sequence length (1568 tokens -> 1 vector)
             emb = outputs.last_hidden_state.mean(dim=1) # Shape: (1, 768)
             
-            # 2. IN-CODE NORMALIZATION (L2)
             # This ensures video features are on the same scale as your Text features
             norm = emb.norm(p=2, dim=1, keepdim=True)
             emb_normalized = emb / (norm + 1e-9)
