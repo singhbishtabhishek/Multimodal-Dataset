@@ -24,10 +24,10 @@ def get_normalized_muril_embeddings(texts, batch_size=16):
         with torch.no_grad():
             outputs = model(**inputs)
             
-        # 1. Grab [CLS] token (Global context for Humor)
+        #Grab [CLS] token (Global context for Humor)
         cls_emb = outputs.last_hidden_state[:, 0, :] 
 
-        # 2. IN-CODE NORMALIZATION (L2)
+        
         # This scales the vector to have a length of 1.0
         norm = cls_emb.norm(p=2, dim=1, keepdim=True)
         cls_emb_normalized = cls_emb / (norm + 1e-9)
