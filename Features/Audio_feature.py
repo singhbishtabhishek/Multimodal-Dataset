@@ -6,9 +6,6 @@ import pandas as pd
 from tqdm import tqdm
 from transformers import AutoFeatureExtractor, HubertModel
 
-# ======================
-# CONFIG
-# ======================
 model_name = "facebook/hubert-base-ls960"
 
 df_path = "/content/drive/MyDrive/Multimodal/Dataset.csv"
@@ -22,9 +19,6 @@ save_path = "/content/drive/MyDrive/Multimodal/features/audio_embeddings_hubert_
 
 filename_col = "Utterances_id"
 
-# ======================
-# DEVICE + MODEL
-# ======================
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
@@ -33,9 +27,6 @@ model = HubertModel.from_pretrained(model_name)
 model.to(device)
 model.eval()
 
-# ======================
-# AUDIO POOLING (IMPROVED)
-# ======================
 def improved_pool(hidden):
     """
     Stable pooling for small datasets
@@ -44,9 +35,6 @@ def improved_pool(hidden):
     maxv = hidden.max(dim=0).values
     return (mean + maxv) / 2
 
-# ======================
-# AUDIO PROCESSING
-# ======================
 def extract_audio_embedding(audio_path, target_sr=16000):
     try:
         y, sr = librosa.load(audio_path, sr=target_sr, mono=True)
@@ -87,16 +75,10 @@ def extract_audio_embedding(audio_path, target_sr=16000):
         print(f"Error processing {audio_path}: {e}")
         return np.zeros(768, dtype=np.float32)
 
-# ======================
-# LOAD DATA
-# ======================
 df = pd.read_csv(df_path)
 
 audio_embeddings = []
 
-# ======================
-# EXTRACTION LOOP
-# ======================
 for _, row in tqdm(df.iterrows(), total=len(df), desc="Extracting Audio Features"):
 
     base_name = str(row[filename_col]).strip()
@@ -118,9 +100,6 @@ for _, row in tqdm(df.iterrows(), total=len(df), desc="Extracting Audio Features
     if not found:
         audio_embeddings.append(np.zeros(768, dtype=np.float32))
 
-# ======================
-# SAVE
-# ======================
 audio_embeddings = np.array(audio_embeddings)
 
 np.save(save_path, audio_embeddings)
@@ -128,9 +107,6 @@ np.save(save_path, audio_embeddings)
 print("\nSaved at:", save_path)
 print("Shape:", audio_embeddings.shape)
 
-# ======================
-# STATS CHECK
-# ======================
 norms = np.linalg.norm(audio_embeddings, axis=1)
 
 print("\nNorm stats:")
