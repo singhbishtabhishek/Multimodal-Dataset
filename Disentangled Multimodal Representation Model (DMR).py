@@ -26,7 +26,7 @@ weights = 1.0 / class_counts
 weights = weights / weights.sum()
 class_weights = torch.tensor(weights, dtype=torch.float32).to(device)
 
-class MISA(nn.Module):
+class DMR(nn.Module):
     def __init__(self, d_t, d_a, d_v, hidden=128):
         super().__init__()
 
@@ -124,7 +124,7 @@ def train_eval(T, A, V, y, modalities=('t','a','v'), k=5):
         if 'v' not in modalities:
             v_train *= 0; v_test *= 0
 
-        model = MISA(T.shape[1], A.shape[1], V.shape[1]).to(device)
+        model = DMR(T.shape[1], A.shape[1], V.shape[1]).to(device)
 
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
         ce_loss = nn.CrossEntropyLoss(weight=class_weights)
