@@ -2,8 +2,6 @@
 
 We are pleased to announce that our paper, **“Multimodal Code-Mixed Hindi-English Dataset for Humor Recognition in Conversations”** has been accepted at the 1st Workshop on **Multimodal Interaction in Face-to-Face Dialogue (MINT 2026)** at EMNLP2026.
 
-Fell free to contact/mail any query - bishtmlai@gmail.com
-
 ***Paper***
 **Title:** Multimodal Code-Mixed Hindi-English Dataset for Humor Recognition in Conversations
 
@@ -19,8 +17,6 @@ https://huggingface.co/datasets/Abhis4e/Panchayat-multimodal-dataset
 
 
 ***Citation***
-
-If using dataset or paper please use citations below.
 
 **Paper**
 ```text
