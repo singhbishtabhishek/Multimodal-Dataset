@@ -18,6 +18,8 @@ The dataset is available on Hugging Face.
 https://huggingface.co/datasets/Abhis4e/Panchayat-multimodal-dataset
 
 ***Citation***
+Fell free to contact/mail any query - bishtmlai@gmail.com
+If using dataset or paper please use citations below.
 
 **Paper**
 ```text
