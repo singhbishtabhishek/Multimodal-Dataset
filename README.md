@@ -8,12 +8,11 @@ Our work introduces a multimodal dataset for humor recognition in code-mixed Hin
 **Title:** Multimodal Code-Mixed Hindi-English Dataset for Humor Recognition in Conversations
 
 ***Read the paper***
-(https://aclanthology.org/2026.mint-1.4.pdf)
+
+https://aclanthology.org/2026.mint-1.4.pdf
 
 ***Dataset***
 
 The dataset is available on Hugging Face.
 
-```text
 https://huggingface.co/datasets/Abhis4e/Panchayat-multimodal-dataset
-```
